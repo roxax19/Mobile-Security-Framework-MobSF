@@ -1,8 +1,119 @@
+- id: android_storage_helper_token
+  message: '-'
+  type: RegexOr
+  pattern: 
+    - '[Tt]oken'
+  severity: info
+  input_case: exact
+- id: android_storage_helper_jwt
+  message: Expresions that may be harcoded jwt
+  type: RegexOr
+  pattern: 
+    - 'ey.*\.ey.*'
+  severity: info
+  input_case: exact
+- id: android_storage_helper_certificate
+  message: '-'
+  type: RegexOr
+  pattern: 
+    - '[Cc]ertificate'
+  severity: info
+  input_case: exact
+
+- id: android_crypto_helper_key
+  message: 'palabras buscadas: SignatureKey, EncodedKey, CipherKey'
+  type: RegexOr
+  pattern: 
+    - '[Ss]ignature[Kk]ey'
+    - '[Ee]ncoded[Kk]ey'
+    - '[Cc]ipher[Kk]ey'
+  severity: info
+  input_case: exact
+- id: android_crypto_helper_siganture
+  message: '-'
+  type: RegexOr
+  pattern: 
+    - '[Ss]ignature'
+  severity: info
+  input_case: exact
+- id: android_crypto_helper_password
+  message: '-'
+  type: RegexOr
+  pattern: 
+    - '[Pp]assword'
+  severity: info
+  input_case: exact
+- id: android_crypto_helper_mesaggeDigest
+  message: '-'
+  type: RegexOr
+  pattern: 
+    - '[Mm]essage[Dd]igest'
+  severity: info
+  input_case: exact
+- id: android_crypto_helper_cipher
+  message: '-'
+  type: RegexOr
+  pattern: 
+    - '[Cc]ipher'
+  severity: info
+  input_case: exact
+- id: android_crypto_helper_encodedKeys
+  message: final Strings and byte declarations
+  type: RegexOr
+  pattern: 
+    - 'final\sString'
+    - 'byte\[\] [a-zA-Z]*'
+  severity: info
+  input_case: exact
+
+- id: android_extends_preference_activity
+  message: >-
+    The app extends preference activity
+  type: Regex
+  pattern: 'extends\sPreferenceActivity'
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: ''
+    cwe: ''
+    owasp-mobile: ''
+    masvs: platform-2
+    ref: https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05h-testing-platform-interaction#testing-for-fragment-injection-mstg-platform-2
+- id: android_override_is_valid_fragment
+  message: >-
+    The app overrides is valid fragment
+  type: Regex
+  pattern: 'isValidFragment'
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: ''
+    cwe: ''
+    owasp-mobile: ''
+    masvs: platform-2
+    ref: https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05h-testing-platform-interaction#testing-for-fragment-injection-mstg-platform-2
+
+
+- id: android_override_webview
+  message: >-
+    The app uses methods to override the response of Android WebView
+  type: RegexOr
+  pattern: 
+    - 'shouldOverrideUrlLoading'
+    - 'shouldInterceptRequest'
+  severity: warning
+  input_case: exact
+  metadata:
+    cvss: ''
+    cwe: ''
+    owasp-mobile: ''
+    masvs: platform-2
+    ref: https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05h-testing-platform-interaction#testing-for-url-loading-in-webviews-mstg-platform-2
 - id: android_safe_browsing_api_disabled
   message: >-
     The app does not use the default SafeBrowsing API. 
     Handling page navigation should be analized carefully, 
-    as it can load untrusted content.'
+    as it can load untrusted content.
   type: Regex
   pattern: setSafeBrowsingEnabled\(.*false
   severity: warning
@@ -13,7 +124,6 @@
     owasp-mobile: ''
     masvs: platform-2
     ref: https://mobile-security.gitbook.io/mobile-security-testing-guide/android-testing-guide/0x05h-testing-platform-interaction#testing-for-url-loading-in-webviews-mstg-platform-2
-
 - id: android_obfuscated
   message: Some code may be obfuscated
   type: Regex
@@ -44,7 +154,7 @@
 - id: android_ip_disclosure
   message: IP Address disclosure
   type: Regex
-  pattern: '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\"'
+  pattern: '\[Ii][Pp].*\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\"'
   severity: warning
   input_case: exact
   metadata:
